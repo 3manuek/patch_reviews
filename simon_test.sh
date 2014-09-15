@@ -6,6 +6,15 @@ LOOP=2
 CONN=60
 TXSS=100
 
+
+hot_cleanup/bin/initdb -D /data/sekondquad/AXLE/sekondquad/hot_cleanup
+echo "port = 7777" >> /data/sekondquad/AXLE/sekondquad/hot_cleanup/postgresql.conf
+hot_cleanup/bin/pg_ctl -D /data/sekondquad/AXLE/sekondquad/hot_cleanup -l logfile_hot_cleanup start
+hot_cleanup_nopatch/bin/initdb -D /data/sekondquad/AXLE/sekondquad/hot_cleanup_nopatch
+echo "port = 8888" > /data/sekondquad/AXLE/sekondquad/hot_cleanup_nopatch/postgresql.conf
+hot_cleanup_nopatch/bin/pg_ctl -D /data/sekondquad/AXLE/sekondquad/hot_cleanup_nopatch -l logfile_hot_cleanup_nopatch start
+
+
 cat /dev/null > $LOG
 
 echo "Start"
